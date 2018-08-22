@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<style>
+	@font-face {
+	  font-family: 'pay';
+	  src:  url('fonts/icomoon.eot?r9v69m');
+	  src:  url('fonts/icomoon.eot?r9v69m#iefix') format('embedded-opentype'),
+	    url('fonts/icomoon.ttf?r9v69m') format('truetype'),
+	    url('fonts/icomoon.woff?r9v69m') format('woff'),
+	    url('fonts/icomoon.svg?r9v69m#icomoon') format('svg');
+	  font-weight: normal;
+	  font-style: normal;
+	}
+	.icon:before {
+	  /* use !important to prevent issues with browser extensions that change fonts */
+	  font-family: 'pay' !important;
+	  speak: none;
+	  font-style: normal;
+	  font-weight: normal;
+	  font-variant: normal;
+	  text-transform: none;
+	  line-height: 1;
+
+	  /* Better Font Rendering =========== */
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+	}
+	.icon-bitcoin:before {
+	  content: "\e900";
+	}
+	* {
+		box-sizing: border-box;
+	}
+	body, h1, h2, h3, h4, h5, h6, p, ul, ol, form, dd, dl, hr {
+	  margin: 0;
+	}
+	img {
+		vertical-align: middle;
+		border: 0;
+	}
+	body {
+		font-family: "Source Sans Pro", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Helvetica Neue", "Arial", "sans-serif";
+		font-size: 12px;
+		line-height: 1.4;
+		color: #202437;
+	}
+	button {
+		padding: 0;
+		border: 0;
+	}
+	a {
+		text-decoration: none;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 500;
+		line-height: 1.1;
+		color: inherit;
+	}
+	ul,li {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	
+	.clearfix:after, .clearfix:before {
+	    content: " ";
+	    display: table;
+	    clear: both;
+	}
+	button:focus {
+		outline: none;
+	}
+	.wrapper {
+		background: rgba(239, 240, 242);
+	}
+	.content {
+		width: 940px;
+		margin: 0 auto;
+	}
+	header {
+		margin-top: 30px;
+	}
+	header >div{
+		float: left;
+	}
+	.header-order {
+		float: left;
+		font-size: 13px;
+	}
+	.header-order >div:last-child {
+		margin-top: 5px;
+	}
+	.header-money {
+		float: right;
+		margin-top: 5px;
+	}
+	.header-money span {
+		font-size: 20px;
+		color: rgba(254,106,0);
+	}
+	.main-pay {
+		background: #fff;
+		border-top: 2px solid rgba(158,158,161);
+		border-bottom: 2px solid rgba(158,158,161);
+		padding: 20px;
+	}
+	.main-pay {
+
+		margin-top: 30px;
+	}
+	.yellow {
+		color: #ffa600;
+	}
+	.paywaylist li {
+		height: 56px;
+		cursor: pointer;
+		border-radius: 2px;
+
+	}
+	.paywaylist li .icon {
+		background: #ffa600;
+		color: #fff;
+		font-size: 24px;
+		width: 56px;
+		border-radius: 8px 0 0 8px;
+		float: left;
+		text-align: center;
+		height: 56px;
+		line-height: 56px;
+	}
+	.paywaylist li .desc {
+		width: calc(100% - 56px);
+		padding: 0 20px;
+		box-sizing: border-box;
+		border: 1px solid #e1e2e6;
+		border-left: none;
+		border-radius: 0 8px 8px 0;
+		height: 56px;
+		line-height: 56px;
+		float: right;
+	}
+	.paywaylist li .desc:hover {
+		border-color: #c6c8d1;
+		background: #ecf5ff;
+	}
+
+	.paywaylist li.active .desc{
+		color: #3e8bff;
+		border-color: #3e8bff;
+		background: #ecf5ff;
+	}
+	.paywaylist li .desc .total span:last-child{
+		color: #a0a3af;
+	}
+	.paywaylist li .title {
+		font-size: 14px;
+		box-sizing: border-box;
+		display: inline-block;
+		width: 200px;
+	}
+	.paywaylist li .total {
+		float: right;
+	}
+	.paywaylist li .total span:first-child{
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.paywaylist li + li {
+		margin-top: 10px;
+	}
+	.paywaylist li .name {
+		font-size: 14px;
+		margin-left: 15px;
+	}
+	.paywaylist li .pay {
+		float: right;
+	}
+	.paywaylist li.active {
+		/*border: 2px solid rgba(110,136,198);*/
+	}
+	.main-pay .choose {
+		font-size: 16px; font-weight: 600;
+		margin: 10px 0 28px;
+	}
+	.btn-pay {
+		text-align: right;
+	}
+	.btn-pay .el-button{
+		margin-top: 30px;
+	}
+	.payinfoList li >span{
+		display: inline-block;
+		font-size: 13px;
+	}
+	.payinfoList li >span:first-child {
+		color: #a0a3af;
+		width: 100px;
+	}
+	.payinfoList li >span:last-child {
+
+	}
+	.payinfoList {
+		float: left;
+		width: calc(100% - 180px);
+	}
+	.payCode {
+		float: right;
+		width: 150px;
+	}
+	.payCode img {
+		width: 100%;
+	}
+	.timeLeft .time {
+		color: #a0a3af;
+		font-size: 15px;
+		margin-bottom: 10px;
+	}
+	.timeLeft .time span {
+		color: #3e8bff;
+		font-weight: bold;
+		margin: 0 3px;
+	}
+	.timeLeft .progress {
+		height: 8px;
+		border-radius: 5px;
+		margin-bottom: 0;
+		background: #f2f2f2;
+
+	}
+	.timeLeft .progress .progress-bar {
+		float: none;
+		max-width: 100%;
+		background: #3e8bff;
+		width: 100%;
+		height: 100%;
+		transition: width .6s ease;
+		border-radius: 25px;
+	}
+	.payment-expired {
+		text-align: center;
+		padding-bottom: 65px;
+	}
+	.payment-expired p{
+		font-weight: bold;
+		font-size: 24px;
+		line-height: 1.2;
+		color: #848484;
+	}
+</style>
+<body class="wrapper">
+	<div class="content">
+		<header class="clearfix">
+			<div class="header-order">
+				<div>订单号：91512232</div>
+				<div>商户：比特大陆有限公司</div>
+			</div>
+			<div class="header-money"><span>198.00</span>  US</div>
+		</header>
+		<section class="main-pay" v-if="step === 1">
+			<p class="choose">Please select your payment currency</p>
+			<div>
+				<ul class="paywaylist">
+					<li v-for="cur in [1,2,3,4,5,6]" @click="tab = cur" :class="{'active': tab === cur}">
+						<span class="icon icon-bitcoin"></span>
+						<div class="desc">
+							<span class="title">Bitcoin</span>
+							<div class="total">
+								<span>0.000926 BTC</span> 
+								<span>| 1 BCH = 593.32 USD</span>
+							</div>
+						</div>
+					</li>	
+				</ul>
+			</div>
+			
+		</section>
+		<section class="main-pay" v-else-if="!expired">
+			<p class="choose">Pay with Btc</p>
+			<div class="clearfix">
+				<div class="payinfoList">
+					<ul>
+						<!-- <li><span>Pay with:</span><span>BTC</span></li> -->
+						<li><span>Exact amount:</span><span>0.000926 BTC</span></li>
+						<li><span>Pay address:</span><span>acdf45454JFASFKSFFAfklasjfk</span></li>
+						<li><span>InvoiceId:</span><span>324242334</span></li>
+						<li><span>Site:</span><span>www.bitmain.com</span></li>
+					</ul>
+				</div>
+				<div class="payCode">
+					<img src="./code.png" alt="">
+				</div>	
+			</div>
+			<div class="timeLeft">
+				<div class="time">Awaiting payment. The invoice expires in: <span>{{time}}</span></div>
+				<div class="progress">
+					<div class="progress-bar" :style="{'width': timeLeft*100 / 700 + '%'}"></div>
+				</div>
+			</div>
+		</section>
+		<section class="main-pay" v-else>
+			<div class="payment-expired">
+				<div>
+					<svg viewBox="0 0 160 160" width="150px" height="150px"><path fill="#f4661e" d="M80 16a64 64 0 1 0 64 64 64 64 0 0 0-64-64zm0 116a52 52 0 1 1 52-52 52 52 0 0 1-52 52zm0-87.932c-4.584 0-8.054 2.392-8.054 6.257v35.438c0 3.867 3.469 6.251 8.054 6.251 4.472 0 8.051-2.482 8.051-6.251V50.324c0-3.773-3.579-6.257-8.051-6.257zM80 100a7.988 7.988 0 1 0 7.983 7.99A8 8 0 0 0 80 100zm0 0"></path></svg>
+				</div>
+				<p>Sorry, this invoice has expired</p>
+			</div>
+		</section>
+		<div class="btn-pay" v-if="step === 1"><el-button type="primary" @click="goPay">确认付款</el-button></div>
+		<div class="btn-pay" v-else><el-button type="primary" @click="endTime">订单过期页面</el-button>
+			<el-button type="primary" @click="goBack">返回</el-button></div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- <script src="vue.min.js"></script> -->
+
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+	var app = new Vue({
+		el: '.content',
+		data: {
+			tab: 0,
+			step: 1,
+			timeLeft: 700,
+			expired: false
+		},
+		computed: {
+			time() {
+				let hour = Math.floor(this.timeLeft / 3600);
+				let minite = Math.floor((this.timeLeft % 3600) / 60);
+				let second = this.timeLeft % 60;
+				if (hour) {
+					return '' +  (hour >= 10 ? hour : '0' + hour) + ':' + (minite >= 10 ? minite : '0' + minite)  + ':' + (second >= 10 ? second : '0' + second);
+				} else {
+					return '' + (minite >= 10 ? minite : '0' + minite)  + ':' + (second >= 10 ? second : '0' + second);
+				}
+				
+			},
+		},
+		methods: {
+			goPay() {
+				this.step = 2;
+				this.expired = false;
+				this.countTime();
+			},
+			goBack() {
+				this.step = 1;
+			},
+			countTime() {
+				setInterval(() => {
+					this.timeLeft--;
+					if (this.timeLeft === 0) {
+						this.expired = true;
+					}
+				}, 1000)
+			},
+			endTime() {
+				this.expired = true;
+			}
+		}
+	})
+</script>
+</html>

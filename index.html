@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- <script src="vue.min.js"></script> -->
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+<body>
+	<div id="app">
+		<el-input placeholder="hahah" v-model="input" bb="asdfsdf"></el-input>
+		<haha a="22"></haha>
+		<div v-if="hasName('a')">ysl lls</div>	
+	</div>
+</body>
+<script>
+	function hasName(a) {
+		return true;
+	}
+	Vue.component('haha', {
+	  template: '<h2>hello man</h2>'
+	})
+	var app3 = new Vue({
+  		el: '#app',
+  		data: {
+    		seen: true,
+    		input: ''
+  		},
+  		methods: {
+  			hasName(a) {
+  				return true;
+  			}
+  		}
+	})
+
+</script>
+</html>

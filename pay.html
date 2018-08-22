@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	img {
+		vertical-align: middle;
+		border: 0;
+	}
+	body {
+		background: #F2F4F6;
+		padding: 20px;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 12px;
+		line-height: 1.428571429;
+		color: #333333;
+	}
+	button {
+		padding: 0;
+		border: 0;
+	}
+	a {
+		text-decoration: none;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 500;
+		line-height: 1.1;
+		color: inherit;
+	}
+	ul,li {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	h4, .h4, h5, .h5, h6, .h6 {
+		margin-top: 8.5px;
+    	margin-bottom: 8.5px;
+	}
+	h1, .h1, h2, .h2, h3, .h3 {
+		margin-top: 17px;
+		margin-bottom: 8.5px;
+	}
+	h4, .h4 {
+		font-size: 15px;
+	}
+	h2, .h2 {
+		font-size: 25px;
+	}
+	p {
+		margin: 0 0 8.5px;
+	}
+	
+	.clearfix:after, .clearfix:before {
+	    content: " ";
+	    display: table;
+	    clear: both;
+	}
+	button:focus {
+		outline: none;
+	}
+	#invoice {
+		max-width: 500px;
+		margin: 0 auto;
+		display: none;
+	}
+	.business-name {
+		font-size: 18px;
+	}
+	.payment-info {
+		text-align: center;
+		display: none;
+	}
+	.payment-info h2 {
+		margin: 25px 0 0;
+		font-weight: 300
+	}
+	.payment-info .ant-row {
+		position: relative;
+		    margin-left: 0;
+		margin-right: 0;
+		 height: auto;
+		zoom: 1;
+		display: block;
+	}
+	.payment-info .ant-row .ant-row-div {
+		width: 75%;
+		margin-left: 12.5%;
+		max-height: 500px;
+		overflow: auto;
+	}
+	.payment-info .currency-card {
+		border: 1px solid #e4e2e2;
+		border-radius: 8px;
+		-webkit-box-shadow: 1px 1px 4px -1px rgba(0,0,0,.1);
+		box-shadow: 1px 1px 4px -1px rgba(0,0,0,.1);
+		-webkit-transition: border-color .3s ease-in-out,-webkit-box-shadow .3s ease-in-out;
+		transition: border-color .3s ease-in-out,-webkit-box-shadow .3s ease-in-out;
+		transition: box-shadow .3s ease-in-out,border-color .3s ease-in-out;
+		transition: box-shadow .3s ease-in-out,border-color .3s ease-in-out,-webkit-box-shadow .3s ease-in-out;
+		margin: 15px 0;
+		cursor: pointer;
+	}
+	.payment-info .currency-card .currency-card-rate {
+		text-align: right;
+		padding: 3px 12px 0 3px;
+		border-top: 1px solid #e4e2e2
+	}
+	.payment-info .currency-card.active:not(.disabled) {
+		border-color: #1890ff;
+	}
+	.payment-info .currency-card .currency-card-main-div {
+		display: flex;
+	}
+	.payment-info .currency-card .currency-card-main-div>div:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 50px;
+		height: 50px;
+	}
+	.payment-info .currency-card .currency-card-main-div>div:first-child img {
+		height: 30px;
+		width: 30px;
+	}
+	.payment-info .currency-card .currency-card-main-div>div:last-child {
+		display: flex;
+		flex: 1;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 15px;
+		padding-right: 12px;
+	}
+	.payment-info .currency-card .currency-card-main-div>div:last-child .currency-card-currency-amount{
+		color: #555;
+	}
+	#invoice .content-block {
+		border-radius: 8px;
+		border: 1px solid #ececec;
+		box-shadow: 0 2px 7px rgba(0,0,0,0.07);
+		margin-bottom: 10px;
+		padding: 10px;
+		background: #fff;
+	}
+	#invoice .invoice-header {
+		padding: 4px 0;
+		display: flex;
+		flex-wrap: wrap;
+	}
+	#invoice .invoice-header >div:first-child {
+		flex: 1
+	}
+	#invoice .invoice-header >div:last-child {
+		flex: 1;
+		font-size: 15px;
+		text-align: right;
+	}
+	#invoice .invoice-header .seller-info{
+		margin-top: 0;
+		font-weight: 400;
+	}
+	.text-muted {
+		color: #777;
+	}
+	#invoice hr {
+		margin: 5px 0 10px 0;
+		border: 0;
+		border-top: 1px solid #eeeeee;
+		width: 100%;
+	}
+	#invoice .btn-pay {
+		/*width: 100%;*/
+		width: 75%;
+		margin-left: 12.5%;
+		border: 1px solid #1890ff;
+		background: #1890ff;
+		font-size: 14px;
+		border-radius: 4px;
+		height: 32px;
+		line-height: 32px;
+		text-align: center;
+		transition: all .3s cubic-bezier(.645,.045,.355,1);
+		font-weight: 400;
+		margin-bottom: 20px;
+		color: #fff;
+		cursor: pointer;
+		padding: 0;
+	}
+	#invoice .btn-pay:hover,#invoice .btn-pay:focus {
+		color: #fff;
+		background-color: #40a9ff;
+		border-color: #40a9ff;
+	}
+	#invoice .btn-pay:active{
+		color: #fff;
+    	background-color: #096dd9;
+    	border-color: #096dd9;
+	}
+	#invoice .btn-pay[disabled] {
+		color: rgba(0,0,0,.25);
+    	background-color: #f5f5f5;
+    	border-color: #d9d9d9;
+    	cursor: not-allowed;
+	}
+	#payment {
+		text-align: center;
+		max-width: 940px;
+		padding: 30px;
+		margin: auto;
+		position: relative;
+		background-color: #fff;
+		box-shadow: 1px 0 5px rgba(120,120,120,0.1), 0 1px 5px rgba(120,120,120,0.1), -1px 0 5px rgba(120,120,120,0.1), 0 -1px 5px rgba(120,120,120,0.1);
+	}
+	#payment .payment-header {
+		color: #0065a1;
+		text-align: left;
+		border-bottom: 1px solid #39659e;
+		margin-bottom: 20px
+	}
+	#payment .payment-header h2{
+		display: inline-block;
+		color: #39659e;
+		border-bottom: 5px solid #39659e;
+		font-size: 36px;
+		margin-bottom: -5px;
+		padding-bottom: 20px;
+		font-weight: 300;
+		position: relative;
+	}
+	#payment .payment-header .payment-id {
+		background: #f2f2f2;
+		position: absolute;
+		font-size: 15px;
+		vertical-align: middle;
+		display: inline-block;
+		padding: 9px 14px;
+		margin-top: 6px;
+		left: 100%;
+		margin-left: 20px;
+		color: #848484;
+		border-radius: 3px;
+	}
+	#payment .payment-header .payment-id:before{
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		margin-top: -5px;
+		margin-left: -5px;
+		display: block;
+		width: 0;
+		height: 0;
+		border-top: 5px solid transparent;
+		border-right: 5px solid #f2f2f2;
+		border-bottom: 5px solid transparent
+	}
+	#payment .payment-header .payway {
+		/*height: 35px;*/
+		margin-top: 6px;
+		float: right;
+		font-size: 15px;
+		color: #837e78;
+		font-weight: bold;
+	}
+	.payment-body-top {
+		padding: 20px;
+		border: 1px solid #e8e8e8;
+		border-radius: 2px;
+		text-align: left;
+		margin-bottom: 9px;
+	}
+	.payment-body-top .ammounts{
+		width: 315px;
+		float: left;
+	}
+	.payment-body-top .address{
+		min-width: 490px;
+		float: right;
+	}
+	.payment-body-top .item >div:first-child {
+		font-size: 13px;
+		color: #848484;
+		margin-bottom: 5px;
+	}
+	.payment-body-top .item >div:last-child {
+		height: 35px;
+		line-height: 33px;
+		width: 100%;
+		border: 1px solid #e8e8e8;
+		color: #848484;
+		font-size: 15px;
+		font-weight: bold;
+		text-shadow: 1px 1px 0 #fff;
+		padding-left: 15px;
+		background: #f7f7f7;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.payment-body-middle {
+		border-bottom: 1px solid #e8e8e8;
+    	padding: 20px 0;
+    	margin-bottom: 15px;
+    	overflow: hidden;
+	}
+	.payment-body-middle> div {
+		float: left;
+	}
+	.payment-body-middle>div:first-child {
+		width: calc(100% - 180px);
+	}
+	.payment-body-middle>div:first-child li {
+		text-align: right;
+		font-size: 20px;
+		color: #1b3049;
+		line-height: 30px;
+	}
+	.payment-body-middle>div:first-child li span {
+		float: left;
+		text-align: left;
+		/*color: #1b3049;*/
+		font-weight: 600;
+	}
+	.payment-body-middle>div:last-child {
+		width: 150px;
+		margin-left: 30px;
+	}
+	.payment-body-middle>div:last-child img {
+		width: 100%;
+	}
+	.payment-body-bottom, .payment-expired {
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #e7e7e7;
+		text-align: left;
+	}
+	.payment-body-bottom .time {
+		color: #848484;
+		font-size: 15px;
+		margin-bottom: 10px;
+	}
+	.payment-body-bottom .time span {
+		color: #39649d;
+		font-weight: bold;
+		margin: 0 3px;
+	}
+	.payment-body-bottom .progress {
+		height: 10px;
+		border-radius: 3px;
+		border: 2px solid #e5e5e5;
+		margin-bottom: 0;
+		box-shadow: none;
+		background: #e7e7e7;
+
+	}
+	.payment-body-bottom .progress .progress-bar {
+		float: none;
+		max-width: 100%;
+		background: #376097;
+		width: 100%;
+		height: 100%;
+		font-size: 12px;
+		line-height: 20px;
+		transition: width .6s ease;
+		border-radius: 25px;
+	}
+	.payment-expired {
+		text-align: center;
+		padding-bottom: 65px;
+	}
+	.payment-expired p{
+		font-weight: bold;
+		font-size: 24px;
+		line-height: 1.2;
+		color: #848484;
+	}
+	.payment-body-bottom.expired .time span {
+		color: #f4661e;
+	}
+	.payment-body-bottom.expired .progress .progress-bar {
+		background: #f4661e;
+	}
+	#payment .gobackBtn {
+		text-align: center;
+	}
+	#payment .gobackBtn button{
+		line-height: 35px;
+		font-size: 16px;
+		text-align: center;
+		color: #fff;
+		background: #1894d2;
+		padding: 0 15px;
+		display: inline-block;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	#payment .gobackBtn button:hover {
+		background: #3eb9f7;
+	}
+</style>
+<body>
+	<div id="app">
+		<div id="invoice" v-if="step === 1">
+			<div>
+				<!-- <h1 class="business-name">{{prePayInfo.merchantName}}</h1> -->
+				<h1 class="business-name">business name</h1>
+			</div>
+			<div class="content-block">
+				<div class="invoice-header">
+					<div>
+						<h4 class="seller-info">Order #{{prePayInfo.orderId}}</h4>
+						<!-- <p class="text-muted"><span>1 × Cafe Mocha, 2 × Caramel Macchiato&nbsp;</span></p> -->
+					</div>
+					<div class="text-right">{{prePayInfo.orderAmount}} {{prePayInfo.orderCurrency}}</div>
+				</div>
+				<hr>
+				<div class="payment-info">
+				    <h2>Select payment currency</h2>
+				    <div class="ant-row">
+				        <div class="ant-row-div">
+				            <div class="currency-card" :class="{'active': tabIndex === index}" v-for="(currency, index) in prePayInfo.currencies" @click="tabIndex = index">
+				                <div class="currency-card-main-div">
+				                    <div><img :src="currency.img"></div>
+				                    <div>
+				                        <div class="currency-card-currency-title">{{currency.name}}</div>
+				                        <div class="currency-card-currency-amount">{{currency.amount}}</div>
+				                    </div>
+				                </div>
+				                <div class="currency-card-rate">{{currency.rate}}</div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				<div>
+				    <button type="button" class="btn-pay" :disabled="tabIndex === -1" @click="goToPay">
+				    	Pay <span v-if="tabIndex !== -1">with {{prePayInfo.currencies[tabIndex].name}}</span>
+				    </button>
+				</div>
+			</div>
+		</div>
+		<div id="payment" v-if="step === 2">
+			<div class="payment-header">
+				<h2><span class="payment-id">#{{payInfo.orderId}}</span> Payment</h2>
+				<div class="payway">Pay with: {{payInfo.currency}}</div>	
+			</div>
+			<div class="payment-body">
+				<template v-if="!expired">
+					<div class="payment-body-top clearfix">
+						<div class="ammounts item">
+							<div>Send this exact amount of:</div>
+							<div>{{payInfo.due}} {{payInfo.currency}}</div>
+						</div>
+						<div class="address item">
+							<div>to Litecoin Testnet Address:</div>
+							<div>{{payInfo.address}}</div>
+						</div>
+					</div>
+					<div class="payment-body-middle clearfix">
+						<div>
+							<ul>
+								<li><span>InvoiceId:</span>{{payInfo.invoiceId}}</li>
+								<li><span>Amount:</span>{{payInfo.orderAmount}} {{payInfo.orderCurrency}} ({{payInfo.due}} {{payInfo.currency}})</li>
+								<li><span>Merchant name:</span>{{payInfo.merchantName}}</li>
+								<li><span>Site:</span>{{payInfo.callBackUrl}}</li>
+							</ul>
+						</div>
+						<div>
+							<img :src="'data:img/jpg;base64,' + payInfo.qrCode" alt="">
+						</div>
+					</div>
+					<div class="payment-body-bottom">
+						<div class="time">Time left to proceed: <span>{{time}}</span> waiting for the payment...</div>
+						<div class="progress">
+							<div class="progress-bar" :style="{'width': timeLeft*100 / 900 + '%'}"></div>
+						</div>						
+					</div>
+				</template>
+				<template v-else>
+					<div class="payment-expired">
+						<div>
+							<svg viewBox="0 0 160 160" width="150px" height="150px"><path fill="#f4661e" d="M80 16a64 64 0 1 0 64 64 64 64 0 0 0-64-64zm0 116a52 52 0 1 1 52-52 52 52 0 0 1-52 52zm0-87.932c-4.584 0-8.054 2.392-8.054 6.257v35.438c0 3.867 3.469 6.251 8.054 6.251 4.472 0 8.051-2.482 8.051-6.251V50.324c0-3.773-3.579-6.257-8.051-6.257zM80 100a7.988 7.988 0 1 0 7.983 7.99A8 8 0 0 0 80 100zm0 0"></path></svg>
+						</div>
+						<p>Sorry, this invoice has expired</p>
+					</div>
+					<div class="payment-body-bottom expired">
+						<div class="time">Time left to proceed: <span>00:00</span></div>
+						<div class="progress">
+							<div class="progress-bar"></div>
+						</div>
+					</div>
+				</template>
+			</div>
+			<div class="gobackBtn">
+				<button><a :href="payInfo.callBackUrl">Back</a></button>
+			</div>
+		</div>
+	</div>
+	<!-- <script src="vue.min.js"></script> -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+	<script>
+		const ORDER_TIME = 900;
+		let getURLParam = function(name) { 
+		    var value = location.search.match(new RegExp("[?&]" + name + "=([^&]*)(&?)","i")); 
+		    return value ? decodeURIComponent(value[1]) : value; 
+		}
+		let errorFun = function(msg) {
+			if(msg) {
+				alert(msg);						
+			}
+		}
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				step: 2,
+				tabIndex: -1,
+				timeLeft: 900,
+				expired: false,
+				currencies: [
+				    // {
+				    //     "img": "https://static.coingate.com/images/cryptocurrencies/bitcoin.png",
+				    //     "name": "Bitcoin",
+				    //     "amount": "0.000926 BTC",
+				    // },
+				    // {
+				    //     "img": "https://static.coingate.com/images/cryptocurrencies/ethereum.png",
+				    //     "name": "Ethereum",
+				    //     "amount": "0.018802 ETH",
+				    // },
+				    // {
+				    //     "img": "https://static.coingate.com/images/cryptocurrencies/litecoin.png",
+				    //     "name": "Litecoin",
+				    //     "amount": "0.099751 LTC",
+				    // }
+				],
+				prePayInfo: {},
+				payInfo: {}
+			},
+			computed: {
+				time() {
+					let minite = Math.floor(this.timeLeft / 60);
+					let second = this.timeLeft % 60;
+					return '' + (minite >= 10 ? minite : '0' + minite)  + ':' + (second >= 10 ? second : '0' + second);
+				},
+			},
+			created() {
+				this.getInvoice();
+			},
+			methods: {
+				goToPay() {
+					let invoiceId = this.prePayInfo.invoiceId;
+					let currency = this.prePayInfo.currencies[this.tabIndex].name;
+					let amount = this.prePayInfo.currencies[this.tabIndex].amount;
+					let postData = {invoiceId, currency, amount};
+					$.ajax({
+						url: 'http://192.168.169.88:8082/payment/pay',
+						// data: JSON.stringify(postData),
+						data: postData,
+						type: 'POST',
+						// contentType: 'application/json; charset=utf-8',
+						success: (res) => {
+							if(res.code === 0) {
+								this.getInvoice();
+							} else {
+								errorFun(res.msg);
+							}
+						},
+						error(res) {
+							errorFun(res.msg);
+						}
+					})
+				},
+				countTime() {
+					setInterval(() => {
+						this.timeLeft--;
+					}, 1000)
+				},
+				getInvoice() {
+					$.ajax({
+						url: 'http://192.168.169.88:8082/payment/getInvoiceByInvoiceId',
+						data: {
+							invoiceId: getURLParam('invoiceId')
+						},
+						success: (res) => {
+							if(res.code === 0) {
+								let invoice = res.invoice;
+								switch(invoice.status) {
+									case 0: // 付款完成
+										this.step = 2;
+										this.payInfo = invoice;
+										let minSecond = this.payInfo.expireTime - (+new Date());
+										if (minSecond > 0) {
+											this.timeLeft = Math.floor(minSecond/1000)
+										} else {
+											this.expired = true;
+										}
+										this.countTime();
+										break;
+									case -1: // 等待付款
+										this.step = 1;
+										this.prePayInfo = invoice;
+										break;
+									case -2: // 过期	
+										this.step = 2;
+										this.expired = true;
+										break;
+									default:
+										break;
+								}
+							}else {
+								errorFun(res.msg);
+							}
+						},
+						error(res) {
+							errorFun(res.msg);
+						}
+					})
+				},
+				
+			},
+		})
+	</script>
+</body>
+</html>

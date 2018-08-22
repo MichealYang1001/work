@@ -1,0 +1,23 @@
+{
+  "name": "work",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vue.min.js",
+  "dependencies": {
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichealYang1001/work.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichealYang1001/work/issues"
+  },
+  "homepage": "https://github.com/MichealYang1001/work#readme"
+}
