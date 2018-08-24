@@ -124,7 +124,7 @@
 		border-radius: 2px;
 
 	}
-	.paywaylist li .icon {
+	/*.paywaylist li .icon {
 		background: #ffa600;
 		color: #fff;
 		font-size: 24px;
@@ -134,17 +134,19 @@
 		text-align: center;
 		height: 56px;
 		line-height: 56px;
-	}
+	}*/
 	.paywaylist li .desc {
-		width: calc(100% - 56px);
+		/*width: calc(100% - 56px);*/
+		/*width: 100%;*/
 		padding: 0 20px;
 		box-sizing: border-box;
 		border: 1px solid #e1e2e6;
-		border-left: none;
-		border-radius: 0 8px 8px 0;
+		/*border-left: none;*/
+		/*border-radius: 0 8px 8px 0;*/
+		border-radius: 8px;
 		height: 56px;
 		line-height: 56px;
-		float: right;
+		/*float: right;*/
 	}
 	.paywaylist li .desc:hover {
 		border-color: #c6c8d1;
@@ -163,7 +165,21 @@
 		font-size: 14px;
 		box-sizing: border-box;
 		display: inline-block;
-		width: 200px;
+		/*width: 200px;*/
+		margin-left: 15px;
+	}
+	.paywaylist li .icon {
+		margin-left: 15px;
+		background: #ffa600;
+		color: #fff;
+		font-size: 20px;
+		width: 30px;
+		border-radius: 100px;
+		/*float: left;*/
+		text-align: center;
+		height: 30px;
+		line-height: 30px;
+		display: inline-block;
 	}
 	.paywaylist li .total {
 		float: right;
@@ -303,9 +319,13 @@
 			<div>
 				<ul class="paywaylist">
 					<li v-for="cur in [1,2,3,4,5,6]" @click="tab = cur" :class="{'active': tab === cur}">
-						<span class="icon icon-bitcoin"></span>
+						<!-- <span class="icon icon-bitcoin"></span> -->
 						<div class="desc">
+							<label class="el-radio ">
+								<span class="el-radio__input" :class="{'is-checked': tab === cur}"><span class="el-radio__inner"></span><input type="radio" class="el-radio__original"></span>
+							</label>
 							<span class="title">Bitcoin</span>
+							<span class="icon icon-bitcoin"></span>
 							<div class="total">
 								<span>0.000926 BTC</span> 
 								<span>| 1 BCH = 593.32 USD</span>
